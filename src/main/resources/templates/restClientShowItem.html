@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title> Walking Footwear Client Application </title>
+
+    <script>
+
+        function searchById(){
+            var inputText=document.getElementById("pid");
+            var pid=inputText.value;
+            var url="http://localhost:8080/api/item/"+pid;
+            var xhr  = new XMLHttpRequest();
+            xhr.open("GET", url, true);
+            xhr.onload = function() {
+
+                var product = JSON.parse(xhr.responseText);
+
+                if (xhr.readyState == 4 && xhr.status == "200") {
+                    console.table(product);
+                    document.getElementById("name").innerHTML=product.name;
+                    document.getElementById("instock").innerHTML=product.instock;
+                    document.getElementById("price").innerHTML=product.instock;
+                }else{
+                    console.error(product);
+                }
+
+            }
+            xhr.send();
+        }
+    </script>
+
+
+
+</head>
+
+<body>
+
+<h1> Testing Find Product By Id </h1>
+
+ID : <input type="text" id="pid"/> <input type=button value="Search" id="b1" onClick="searchById();"/>
+
+<p>NAME: <span id="name"> </span></p>
+<p>instock:<span id="instock"> </span></p>
+<p>price:<span id="price"> </span></p>
+
+
+</body>
+
+</html>
+</html>

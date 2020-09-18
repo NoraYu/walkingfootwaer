@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add New Item</title>
+
+    <script>
+        function addnewitem(){
+
+    var url = "http://localhost:8080/api/newitem";
+
+    var data = {};
+    data.name = document.getElementById("name").value;
+    data.price  = document.getElementById("instock").value;
+    data.instock  = document.getElementById("price").value;
+    //data.category  = "Snow2";
+    var json = JSON.stringify(data);
+
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", url, true);
+    xhr.setRequestHeader('Content-type','application/json; charset=utf-8');
+
+    xhr.onload = function () {
+    var product = JSON.parse(xhr.responseText);
+    if (xhr.readyState == 4 && xhr.status == "200") {
+        console.table(product);
+    } else {
+    console.error(product);
+    }
+    }
+    xhr.send(json);
+    }
+    </script>
+</head>
+<body>
+Name: <input type="text" id="name"/><br>
+In Stock: <input type="text" id="instock"/><br>
+Price: <input type="text" id="price"/><br>
+
+
+
+<input type=button value="Submit" id="b1" onClick="addnewitem();"/>
+
+
+
+
+<!--<p>Category:<span id="cate"> </span></p>-->
+
+</body>
+</html>
